@@ -1,261 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculate SGPA</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<script>
-    var instance = 4;
-    function newCourse() {
-        instance++;
-        var div = document.getElementById('myDiv');
-        var br = document.createElement('br');
-        var br2 = document.createElement('br');
-        var course = document.createElement('input');
-        var cr = document.createElement('select');
-        var gr = document.createElement('select');
-
-        course.type = 'course' + instance;
-        course.id = 'course' + instance;
-        course.className = 'rounded bg-rose-100 text-sm py-2 ml-1 sm:text-lg sm:px-2';
-        course.placeholder = 'Course No. ' + instance;
-
-        cr.type = 'number';
-        cr.name = 'cr' + instance;
-        cr.id = 'cr' + instance;
-        cr.className = 'rounded bg-rose-100 text-sm py-2 px-6 ml-3 sm:text-lg sm:px-16 sm:ml-7';
-        for(x = 1; x < 4; x++){
-            var op = document.createElement('option');
-            op.value = x;
-            op.label = x;
-            cr.appendChild(op);
-        }
-
-        gr.type = 'text';
-        gr.name = 'gr' + instance;
-        gr.id = 'gr' + instance;
-        gr.className = 'rounded bg-rose-100 text-sm py-2 px-6 ml-3 sm:text-lg sm:px-16 sm:ml-7';
-        var letter = 'A';
-        for(x = 1; x < 12; x++){
-            if(x == 1 || x == 4 || x == 7 || x == 10){
-                var op = document.createElement('option');
-                op.value = letter + '+';
-                op.label = letter + '+';
-                gr.appendChild(op);
-            }
-            else if(x == 2 || x == 5 || x == 8 || x == 11){
-                var op = document.createElement('option');
-                op.value = letter;
-                op.label = letter;
-                gr.appendChild(op);
-            }
-            else{
-                var op = document.createElement('option');
-                op.value = letter + '-';
-                op.label = letter + '-';
-                gr.appendChild(op);
-                letter = String.fromCharCode(letter.charCodeAt(0) + 1);
-            }
-        }
-        var op = document.createElement('option');
-        op.value = 'F';
-        op.label = 'F';
-        gr.appendChild(op);
-
-        div.appendChild(br);
-        div.appendChild(br2);
-        div.appendChild(course);
-        div.appendChild(cr);
-        div.appendChild(gr);
-    }
-
-    function getGradeWeight(grade){
-        if(grade == 'A+'){
-            return 4.0;
-        }
-        else if (grade == 'A'){
-            return 4.0;
-        }
-        else if (grade == 'A-'){
-            return 3.67;
-        }
-        else if (grade == 'B+'){
-            return 3.33;
-        }
-        else if (grade == 'B'){
-            return 3.0;
-        }
-        else if (grade == 'B-'){
-            return 2.67;
-        }
-        else if (grade == 'C+'){
-            return 2.33;
-        }
-        else if (grade == 'C'){
-            return 2.0;
-        }
-        else if (grade == 'C-'){
-            return 1.67;
-        }
-        else if (grade == 'D+'){
-            return 1.33;
-        }
-        else if (grade == 'D'){
-            return 1.0;
-        }
-        else {
-            return 0.0;
-        }
-    }
-
-    function calculateSGPA(){
-        let CRHs = [];
-        for (let i = 0; i < instance; i++) {
-            CRHs[i] = parseInt(document.getElementById('cr' + (i + 1)).value);
-        }
-
-        let grades = [];
-        for (let i = 0; i < instance; i++) {
-            grades[i] = getGradeWeight(document.getElementById('gr' + (i + 1)).value);
-        }
-
-        let sgpa = 0;
-        let crh = 0;
-        for (let i = 0; i < instance; i++) {
-            crh += CRHs[i];
-        }
-        for (let i = 0; i < instance; i++) {
-            sgpa += grades[i] * CRHs[i];
-        }
-        sgpa /= crh;
-        if(crh < 19){
-            document.getElementById('output').value = sgpa;
-        }
-        else{
-            alert("Total Credit Hours must not exceed 18!!!")
-        }
-    }
-</script>
-
-<body class="bg-rose-950">
-    <h1 class="flex justify-center items-center text-4xl font-bold italic text-rose-100 p-4">" SGPA Calculator "</h1>
-    <br><br>
-    <div class="flex justify-center items-center">
-        <input type="button" class="rounded bg-rose-300 text-2xl text-rose-900 font-bold italic p-2" value="Add another Course" onclick="newCourse();">
-    </div>
-    <form action="./calculateSGPA.html">
-        <div class="sm:px-80 font-semibold" id="myDiv">
-            <br><br>
-            <div class="text-lg sm:text-2xl text-rose-100 font-bold mb-3">
-                <label class="sm:pl-1 pl-2" for="">Courses (Optional)</label>
-                <label class="sm:pl-12 pl-3" for="">Credit Hrs</label>
-                <label class="sm:pl-20 pl-5" for="">Grade</label>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calculate SGPA</title>
+        <link rel="stylesheet" href="./calculateSGPA.css">
+        <script src="./calculateSGPA.js"></script>
+    </head>
+    <body>
+        <h1>SGPA Calculator</h1>
+        <div class="flex">
+            <input
+                type="button"
+                class="button"
+                value="Add another Course"
+                onclick="newCourse();"
+            >
+        </div>
+        <form>
+            <div class="form-group" id="myDiv">
+                <label for="course1">Courses (Optional)</label>
+                <label for="cr1">Credit Hrs</label>
+                <label for="gr1">Grade</label>
+                <input
+                    type="text"
+                    name="course1"
+                    id="course1"
+                    class="input-field"
+                    placeholder="Course No. 1"
+                >
+                <select name="cr1" id="cr1" class="input-field">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <select name="gr1" id="gr1" class="input-field">
+                    <option value="A+">A+</option>
+                    <option value="A">A</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="B-">B-</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="C-">C-</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="F">F</option>
+                </select>
+                <!-- More inputs and selects for additional courses -->
             </div>
-            <input type="text" name="course1" id="course1" class="rounded bg-rose-100 text-sm py-2 ml-1 sm:text-lg sm:px-2" placeholder="Course No. 1">
-            <select type="number" name="cr1" id="cr1" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            <select type="text" name="gr1" id="gr1" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="A+">A+</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="F">F</option>
-            </select>
-            <br><br>
-            <input type="text" name="course2" id="course2" class="rounded bg-rose-100 text-sm py-2 ml-1 sm:text-lg sm:px-2" placeholder="Course No. 2">
-            <select type="number" name="cr2" id="cr2" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            <select type="text" name="gr2" id="gr2" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="A+">A+</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="F">F</option>
-            </select>
-            <br><br>
-            <input type="text" name="course3" id="course3" class="rounded bg-rose-100 text-sm py-2 ml-1 sm:text-lg sm:px-2" placeholder="Course No. 3">
-            <select type="number" name="cr3" id="cr3" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            <select type="text" name="gr3" id="gr3" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="A+">A+</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="F">F</option>
-            </select>
-            <br><br>
-            <input type="text" name="course4" id="course4" class="rounded bg-rose-100 text-sm py-2 ml-1 sm:text-lg sm:px-2" placeholder="Course No. 4">
-            <select type="number" name="cr4" id="cr4" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            <select type="text" name="gr4" id="gr4" class="rounded bg-rose-100 text-sm py-2 px-6 ml-2 sm:text-lg sm:px-16 sm:ml-6">
-                <option value="A+">A+</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="F">F</option>
-            </select>
+            <div class="flex">
+                <input
+                    type="button"
+                    class="button"
+                    value="Calculate SGPA"
+                    onclick="calculateSGPA();"
+                >
+            </div>
+            <div class="flex font-semibold">
+                <label for="output">SGPA:</label>
+                <input
+                    type="text"
+                    name="output"
+                    id="output"
+                    class="input-field"
+                    readonly
+                >
+                <input type="reset" value="Clear All" class="button">
+            </div>
+        </form>
+        <div class="flex">
+            <button class="button">
+                <a href="./index.html" style="color: inherit; text-decoration: none;">Exit to Home</a>
+            </button>
         </div>
-        <br>
-        <div class="flex justify-center items-center">
-            <input type="button" class="ml-5 rounded bg-rose-300 text-2xl text-rose-900 font-bold italic p-2 mr-4" value="Calculate SGPA" onclick="calculateSGPA();">
-        </div>
-        <br><br>
-        <div class="flex justify-center items-center font-semibold">
-            <label class="text-rose-100 text-xl sm:text-2xl font-semibold italic pr-0.5 sm:pr-3" for="output">SGPA :</label>
-            <input type="text" name="output" id="output" class="rounded bg-rose-100 text-lg p-1 sm:p-2" readonly>
-            <input type="reset" value="Clear All" class="rounded bg-rose-300 text-lg sm:text-2xl text-rose-900 font-bold italic p-1 sm:p-2 ml-1 sm:ml-3"></input>
-        </div>
-    </form>
-    <br><br>
-    <div class="flex justify-center items-center">
-        <button class="rounded bg-rose-300 text-2xl text-rose-900 font-bold italic p-2"><a href="./index.html">Exit to Home</a></button>
-    </div>
-    <br><br>
-    </div>
-</body>
-
+    </body>
 </html>
