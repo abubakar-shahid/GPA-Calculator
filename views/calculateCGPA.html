@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate CGPA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<script>
+    var instance = 2;
+    function newSemester(element) {
+        if (instance < 8) {
+            instance++;
+            var mainDiv = document.getElementById('mainDiv');
+            var br = document.createElement('br');
+
+            var semester = document.createElement('input');
+            semester.type = 'text';
+            semester.name = 'semester' + instance;
+            semester.id = 'semester' + instance;
+            semester.className = 'rounded bg-rose-100 text-lg p-2';
+            semester.placeholder = 'Semester ' + instance;
+            semester.required = true;
+
+            var cr = document.createElement('input');
+            cr.type = 'number';
+            cr.id = 'cr' + instance;
+            cr.name = 'cr' + instance;
+            cr.className = 'rounded bg-rose-100 text-lg py-2 px-10 ml-4';
+            cr.max = '18';
+            cr.min = '1';
+            cr.step = '1';
+            cr.value = '';
+            cr.required = true;
+
+            var div = document.createElement('div');
+            div.id = 'myDiv' + instance;
+            div.className = 'flex justify-center items-center font-semibold';
+            div.appendChild(semester);
+            div.appendChild(cr);
+
+            mainDiv.appendChild(br);
+            mainDiv.appendChild(div);
+        }
+        else {
+            alert("There cannot be more than 8 Semesters!!!");
+        }
+    }
+
+    function checkCGPAs(arr){
+        for(let i=0; i<instance; i++){
+            if(arr[i]<0 || arr[i]>4){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function checkCRHs(arr) {
+            for (let i = 0; i < instance; i++) {
+                if (arr[i] < 0 || arr[i] > 18) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    function calculateCGPA(){
+        let CGPAs = [];
+        for(let i=0; i<instance; i++){
+            CGPAs[i] = parseFloat(document.getElementById('semester' + (i + 1)).value);
+        }
+
+        let CRHs = [];
+        for (let i = 0; i < instance; i++) {
+            CRHs[i] = parseInt(document.getElementById('cr' + (i + 1)).value);
+        }
+
+        if(checkCGPAs(CGPAs)){
+            alert("CGPA should be between 0 and 4 !!!");
+        }
+        else if(checkCRHs(CRHs)){
+            alert("Credit Hours should be between 1 and 18 !!!");
+        }
+        else{
+            let cgpa = 0;
+            let crh = 0;
+            for(let i=0; i<instance; i++){
+                crh += CRHs[i];
+            }
+            for (let i = 0; i < instance; i++) {
+                cgpa += CGPAs[i]*CRHs[i];
+            }
+            cgpa/=crh;
+            if(cgpa){
+                document.getElementById('output').value = cgpa;
+            }
+            else{
+                alert("Please fill out all fields!!!")
+            }
+        }
+    }
+</script>
+
+<body class="bg-rose-950">
+
+    <div class="bg-rose-950">
+        <h1 class="flex justify-center items-center text-4xl font-bold italic text-rose-100 p-4">" CGPA Calculator "</h1>
+        <br><br>
+        <div class="flex justify-center items-center">
+            <input type="button" class="rounded bg-rose-300 text-2xl text-rose-900 font-bold italic p-2" value="Add another Semester" onclick="newSemester();">
+        </div>
+        <br><br>
+        <form action="./calculateCGPA.html" id="myForm">
+            <div id="mainDiv">
+                <div class="flex justify-center items-center sm:text-2xl text-xl text-rose-100 font-bold mb-3">
+                    <label class="pl-4 sm:pl-2" for="">CGPA of Semester</label>
+                    <label class="pl-16 sm:pl-9" for="">Credit Hours</label>
+                </div>
+                <div class="flex justify-center items-center font-semibold" id="myDiv1">
+                    <input type="text" name="semester1" id="semester1" class="rounded bg-rose-100 text-lg p-2" placeholder="Semester 1" required>
+                    <input class="rounded bg-rose-100 text-lg py-2 px-10 ml-4" name="cr1" id="cr1" type="number" min="1" max="18" step="1" value="" required>
+                </div>
+                <br>
+                <div class="flex justify-center items-center font-semibold" id="myDiv2">
+                    <input type="text" name="semester2" id="semester2" class="rounded bg-rose-100 text-lg p-2" placeholder="Semester 2" required>
+                    <input class="rounded bg-rose-100 text-lg py-2 px-10 ml-4" name="cr2" id="cr2" type="number" min="1" max="18" step="1" value="" required>
+                </div>
+            </div>
+            <br><br>
+            <div class="flex justify-center items-center">
+                <input type="button" class="ml-5 rounded bg-rose-300 text-2xl text-rose-900 font-bold italic p-2 mr-4" value="Calculate CGPA" onclick="calculateCGPA();">
+            </div>
+            <br><br>
+            <div class="flex justify-center items-center font-semibold">
+                <label class="text-rose-100 text-xl sm:text-2xl font-semibold italic pr-0.5 sm:pr-3" for="output">CGPA :</label>
+                <input type="text" name="output" id="output" class="rounded bg-rose-100 text-lg p-1 sm:p-2" readonly>
+                <input type="reset" value="Clear All" class="rounded bg-rose-300 text-lg sm:text-2xl text-rose-900 font-bold italic p-1 sm:p-2 ml-1 sm:ml-3"></input>
+            </div>
+        </form>
+        <br><br>
+        <div class="flex justify-center items-center">
+            <button class="rounded bg-rose-300 text-2xl text-rose-900 font-bold italic p-2"><a href="./index.html">Exit to Home</a></button>
+        </div>
+        <br><br>
+    </div>
+</body>
+
+</html>
