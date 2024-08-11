@@ -1,0 +1,78 @@
+body {
+    background-color: #4a1a1a;
+    color: #f8f8f8;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-style: italic;
+    padding: 1rem;
+    color: #f8f8f8;
+}
+
+.button {
+    background-color: #f9a8d4;
+    color: #4a1a1a;
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-style: italic;
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin: 0.5rem;
+}
+
+.button:hover {
+    background-color: #e879f9;
+}
+
+.inputField {
+    background-color: #fef2f2;
+    color: #4a1a1a;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+    border: 1px solid #ddd;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.formGroup label {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.formGroup input[type="text"],
+.formGroup select {
+    width: 100%;
+    max-width: 200px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fontSemibold {
+    font-weight: 600;
+}
+
+.fontBold {
+    font-weight: 700;
+}
+
+.textCenter {
+    text-align: center;
+}
