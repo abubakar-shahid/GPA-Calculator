@@ -5,88 +5,72 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Calculate CGPA</title>
         <link rel="stylesheet" href="./calculateCGPA.css">
-        <script src="./calculateCGPA.js"></script>
     </head>
     <body>
-        <div>
-            <header class="header">
-                <p class="heading">CGPA Calculator</p>
-            </header>
-            <div class="center">
-                <input
-                    type="button"
-                    class="button-new-semester"
-                    value="Add another Semester"
-                    onclick="newSemester();"
-                >
-            </div>
-            <form action="./calculateCGPA.html" id="myForm">
-                <div id="mainDiv">
-                    <div class="input-group">
-                        <label for="">CGPA of Semester</label>
-                        <label for="">Credit Hours</label>
-                    </div>
-                    <div class="input-group" id="myDiv1">
-                        <input
-                            type="text"
-                            name="semester1"
-                            id="semester1"
-                            placeholder="Semester 1"
-                            required
-                        >
-                        <input
-                            name="cr1"
-                            id="cr1"
-                            type="number"
-                            min="1"
-                            max="18"
-                            step="1"
-                            value=""
-                            required
-                        >
-                    </div>
-                    <div class="input-group" id="myDiv2">
-                        <input
-                            type="text"
-                            name="semester2"
-                            id="semester2"
-                            placeholder="Semester 2"
-                            required
-                        >
-                        <input
-                            name="cr2"
-                            id="cr2"
-                            type="number"
-                            min="1"
-                            max="18"
-                            step="1"
-                            value=""
-                            required
-                        >
-                    </div>
-                </div>
-                <div class="center">
-                    <input
-                        type="button"
-                        class="button"
-                        value="Calculate CGPA"
-                        onclick="calculateCGPA();"
+        <header>
+            <nav class="container">
+                <a href="#">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="h-6 w-6"
                     >
+                        <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
+                    </svg>
+                    <span>GPA Calculator</span>
+                </a>
+                <div class="menu">
+                    <a href="#">Calculate CGPA</a>
+                    <a href="#">Calculate SGPA</a>
+                    <a href="#">GPA Rules</a>
                 </div>
-                <div class="output-group">
-                    <label for="output">CGPA :</label>
-                    <input
-                        type="text"
-                        name="output"
-                        id="output"
-                        readonly
-                    >
-                    <input type="reset" value="Clear All">
+            </nav>
+        </header>
+        <main class="container">
+            <h1>Calculate CGPA</h1>
+            <p>Enter your semester details to calculate your Cumulative Grade Point Average (CGPA).</p>
+            <div class="form-section">
+                <div class="form-group">
+                    <div>
+                        <label for="semester-0-sgpa">SGPA</label>
+                        <input
+                            id="semester-0-sgpa"
+                            type="number"
+                            min="0"
+                            max="4.0"
+                            step="0.01"
+                            value="0"
+                        >
+                    </div>
+                    <div>
+                        <label for="semester-0-credits">Credit Hours</label>
+                        <input
+                            id="semester-0-credits"
+                            type="number"
+                            min="0"
+                            value="0"
+                        >
+                    </div>
                 </div>
-            </form>
-            <div class="center">
-                <button class="button" onclick="location.href='./index.html'">Exit to Home</button>
+                <button class="primary">Add Semester</button>
+                <div class="form-group">
+                    <label>CGPA</label>
+                    <div class="text-2xl">0</div>
+                </div>
             </div>
-        </div>
+        </main>
+        <footer>
+            <p>© 2024 GPA Calculator. All rights reserved.</p>
+            <div>
+                <a href="#">Feedback</a>
+            </div>
+        </footer>
     </body>
 </html>
