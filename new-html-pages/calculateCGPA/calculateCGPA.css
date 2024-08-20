@@ -1,15 +1,24 @@
-/* Reset some basic elements */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --background: hsl(210, 100%, 6%);
+    --foreground: hsl(180, 100%, 90%);
+    --primary: hsl(200, 100%, 28%);
+    --primary-foreground: hsl(180, 100%, 90%);
+    --secondary: hsl(203, 23%, 30%);
+    --secondary-foreground: hsl(180, 100%, 90%);
+    --accent: hsl(198, 70%, 50%);
+    --accent-foreground: hsl(185, 10%, 13%);
+    --muted: hsl(200, 50%, 30%);
+    --muted-foreground: hsl(180, 100%, 90%);
+    --input: hsl(210, 50%, 40%);
+    --ring: hsl(180, 100%, 90%);
+    --radius: 0rem;
 }
 
 body {
     font-family: 'Space Mono', monospace;
-    line-height: 1.6;
-    background-color: hsl(210, 100%, 6%);
-    color: hsl(180, 100%, 90%);
+    background-color: var(--background);
+    color: var(--foreground);
+    margin: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -19,144 +28,108 @@ header {
     position: sticky;
     top: 0;
     z-index: 50;
-    background-color: hsla(210, 100%, 6%, 0.8);
+    background-color: rgba(210, 100%, 6%, 0.8);
     backdrop-filter: blur(10px);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--foreground);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav a:hover {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 64px;
-}
-
-nav a {
-    color: hsl(200, 100%, 28%);
-    text-decoration: none;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-nav a:hover {
-    color: hsl(203, 23%, 30%);
-}
-
-nav .menu a {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    color: hsl(180, 100%, 90%);
-}
-
-nav .menu a:hover {
-    background-color: hsl(200, 50%, 30%);
-    color: hsl(180, 100%, 90%);
-}
-
-main {
+    padding: 48px 16px;
     flex: 1;
-    padding: 2rem 1rem;
 }
 
 h1 {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: hsl(180, 100%, 90%);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
 }
 
 p {
-    margin-bottom: 1.5rem;
-    color: hsl(200, 50%, 60%);
+    font-size: 1.25rem;
+    color: var(--muted-foreground);
+    margin-bottom: 24px;
 }
 
-.form-section {
-    margin-bottom: 1.5rem;
-}
-
-.form-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border: 1px solid hsl(210, 50%, 40%);
+.card {
+    background-color: var(--background);
+    border: 1px solid var(--input);
+    padding: 16px;
     border-radius: 8px;
-    background-color: hsl(210, 100%, 12%);
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.form-group label {
-    font-size: 0.875rem;
-}
-
-.form-group input {
-    background-color: hsl(210, 100%, 12%);
-    border: 1px solid hsl(210, 50%, 40%);
-    color: hsl(180, 100%, 90%);
-    padding: 0.5rem;
+.card input {
+    background-color: var(--background);
+    border: 1px solid var(--input);
+    padding: 8px;
+    color: var(--foreground);
     border-radius: 4px;
+    width: 100px;
+    margin-right: 16px;
 }
 
-button {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button.primary {
-    background-color: hsl(200, 100%, 28%);
-    color: hsl(180, 100%, 90%);
-}
-
-button.primary:hover {
-    background-color: hsl(200, 100%, 24%);
-}
-
-button.secondary {
-    background-color: hsl(198, 70%, 50%);
-    color: hsl(185, 10%, 13%);
-}
-
-button.secondary:hover {
-    background-color: hsl(198, 70%, 44%);
-}
-
-button.remove {
-    background-color: transparent;
-    color: hsl(0, 98%, 44%);
+.card button {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
     border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-button.remove:hover {
-    color: hsl(0, 98%, 40%);
+.card button:hover {
+    background-color: rgba(198, 70%, 50%, 0.9);
+}
+
+.btn {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: rgba(200, 100%, 28%, 0.9);
 }
 
 footer {
-    background-color: hsla(203, 23%, 30%, 0.4);
-    padding: 1.5rem;
+    background-color: rgba(200, 50%, 30%, 0.4);
+    padding: 24px 0;
     text-align: center;
-}
-
-footer p {
     font-size: 0.875rem;
-}
-
-footer a {
-    color: hsl(180, 100%, 90%);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-}
-
-footer a:hover {
-    background-color: hsl(200, 50%, 30%);
+    color: var(--muted-foreground);
 }

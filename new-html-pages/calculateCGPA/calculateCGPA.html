@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Calculate CGPA</title>
+        <title>GPA Calculator</title>
         <link rel="stylesheet" href="./calculateCGPA.css">
     </head>
     <body>
         <header>
-            <nav class="container">
+            <nav>
                 <a href="#">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -20,13 +20,13 @@
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="h-6 w-6"
+                        class="h-6 w-6 text-primary"
                     >
                         <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
                     </svg>
                     <span>GPA Calculator</span>
                 </a>
-                <div class="menu">
+                <div>
                     <a href="#">Calculate CGPA</a>
                     <a href="#">Calculate SGPA</a>
                     <a href="#">GPA Rules</a>
@@ -36,33 +36,50 @@
         <main class="container">
             <h1>Calculate CGPA</h1>
             <p>Enter your semester details to calculate your Cumulative Grade Point Average (CGPA).</p>
-            <div class="form-section">
-                <div class="form-group">
-                    <div>
-                        <label for="semester-0-sgpa">SGPA</label>
-                        <input
-                            id="semester-0-sgpa"
-                            type="number"
-                            min="0"
-                            max="4.0"
-                            step="0.01"
-                            value="0"
-                        >
-                    </div>
-                    <div>
-                        <label for="semester-0-credits">Credit Hours</label>
-                        <input
-                            id="semester-0-credits"
-                            type="number"
-                            min="0"
-                            value="0"
-                        >
-                    </div>
+            <div class="card">
+                <div>
+                    <label for="semester-0-sgpa">SGPA</label>
+                    <input
+                        id="semester-0-sgpa"
+                        type="number"
+                        min="0"
+                        max="4.0"
+                        step="0.01"
+                        value="0"
+                    >
                 </div>
-                <button class="primary">Add Semester</button>
-                <div class="form-group">
+                <div>
+                    <label for="semester-0-credits">Credit Hours</label>
+                    <input
+                        id="semester-0-credits"
+                        type="number"
+                        min="0"
+                        value="0"
+                    >
+                </div>
+                <button>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="w-4 h-4"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <button class="btn">Add Semester</button>
+            <div class="card">
+                <div>
                     <label>CGPA</label>
-                    <div class="text-2xl">0</div>
+                    <div class="text-2xl font-bold">0</div>
                 </div>
             </div>
         </main>
