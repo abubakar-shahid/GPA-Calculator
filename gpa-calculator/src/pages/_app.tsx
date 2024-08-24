@@ -1,8 +1,8 @@
-import '../app/globals.css'; // Import your global CSS file here
-import type { AppProps } from 'next/app'; // Import type for TypeScript
+import '../app/globals.css'
+import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />; // Render the page component
+  return <Component {...pageProps} />
 }
 
-export default MyApp;
+export default MyApp
