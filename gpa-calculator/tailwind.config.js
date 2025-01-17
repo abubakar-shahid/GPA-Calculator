@@ -1,15 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}', // Ensure this line is correct
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       fontFamily: {
         heading: ['var(--font-heading)', 'sans-serif'],
-        body: ['var(--font-body)', 'sans-serif']
+        body: ['var(--font-body)', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -18,11 +19,12 @@ module.exports = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT: '#66E0F7',
+          dark: '#0A192F',
           foreground: 'hsl(var(--primary-foreground))'
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
+          DEFAULT: '#1E3A8A',
           foreground: 'hsl(var(--secondary-foreground))'
         },
         destructive: {
@@ -45,6 +47,10 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
+        text: {
+          primary: '#FFFFFF',
+          secondary: '#94A3B8',
+        }
       },
       borderRadius: {
         xl: `calc(var(--radius) + 4px)`,

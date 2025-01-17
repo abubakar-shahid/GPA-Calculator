@@ -1,0 +1,43 @@
+.container {
+  @apply max-w-4xl mx-auto px-4 py-12;
+}
+
+.title {
+  @apply text-4xl font-bold text-primary mb-8 text-center;
+}
+
+.formGroup {
+  @apply space-y-4 mb-8;
+}
+
+.semesterGroup {
+  @apply bg-background border border-primary/20 p-6 rounded-lg flex flex-col md:flex-row gap-4;
+}
+
+.input {
+  @apply bg-background border border-primary/40 text-text-primary px-4 py-2 rounded-md w-full md:w-auto
+  focus:outline-none focus:ring-2 focus:ring-primary/50;
+}
+
+.select {
+  @apply bg-background border border-primary/40 text-text-primary px-4 py-2 rounded-md w-full md:w-auto
+  focus:outline-none focus:ring-2 focus:ring-primary/50;
+}
+
+.button {
+  @apply bg-primary text-background px-6 py-2 rounded-md hover:bg-primary/90 transition-colors
+  w-full md:w-auto text-center font-semibold;
+}
+
+.result {
+  @apply mt-8 flex flex-col md:flex-row items-center gap-4;
+}
+
+.result label {
+  @apply text-xl font-semibold text-primary;
+}
+
+.addButton {
+  @apply mb-6 bg-secondary text-text-primary px-6 py-2 rounded-md hover:bg-secondary/90 transition-colors
+  w-full md:w-auto text-center font-semibold;
+}

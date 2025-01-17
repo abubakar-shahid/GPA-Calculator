@@ -1,39 +1,121 @@
-// import { useState } from 'react';
-// import styles from '../../public/assets/calculateCGPA.module.css';
+import { useState } from 'react';
+import Link from 'next/link';
+import styles from '../styles/CalculateCGPA.module.css';
 
-// const CalculateCGPA = () => {
-//   const [semesters, setSemesters] = useState([{ semester: '', creditHours: '' }]);
-//   const [cgpa, setCGPA] = useState('');
+const CalculateCGPA = () => {
+  const [semesters, setSemesters] = useState([
+    { semester: '', sgpa: '', creditHours: '' }
+  ]);
+  const [cgpa, setCGPA] = useState('');
 
-//   const addSemester = () => {
-//     setSemesters([...semesters, { semester: '', creditHours: '' }]);
-//   };
+  const addSemester = () => {
+    setSemesters([...semesters, { semester: '', sgpa: '', creditHours: '' }]);
+  };
 
-//   const calculateCGPA = () => {
-//     // Your calculation logic here
-//   };
+  const handleInputChange = (index: number, field: string, value: string) => {
+    const updatedSemesters = semesters.map((semester, i) => {
+      if (i === index) {
+        return { ...semester, [field]: value };
+      }
+      return semester;
+    });
+    setSemesters(updatedSemesters);
+  };
 
-//   return (
-//     <div className={styles.container}>
-//       <h1 className={styles.title}>CGPA Calculator</h1>
-//       <button onClick={addSemester} className={styles.button}>Add another Semester</button>
-//       <form onSubmit={(e) => e.preventDefault()}>
-//         <div className={styles.formGroup}>
-//           {semesters.map((_, index) => (
-//             <div key={index} className={styles.semesterGroup}>
-//               <input type="text" placeholder={`Semester ${index + 1}`} className={styles.input} />
-//               <input type="number" min="1" max="18" step="1" className={styles.input} />
-//             </div>
-//           ))}
-//         </div>
-//         <button type="button" onClick={calculateCGPA} className={styles.button}>Calculate CGPA</button>
-//         <div className={styles.result}>
-//           <label>CGPA:</label>
-//           <input type="text" value={cgpa} readOnly className={styles.input} />
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
+  const calculateCGPA = () => {
+    let totalQualityPoints = 0;
+    let totalCreditHours = 0;
 
-// export default CalculateCGPA;
+    semesters.forEach(semester => {
+      const sgpa = parseFloat(semester.sgpa);
+      const creditHours = parseFloat(semester.creditHours);
+
+      if (!isNaN(sgpa) && !isNaN(creditHours)) {
+        totalQualityPoints += sgpa * creditHours;
+        totalCreditHours += creditHours;
+      }
+    });
+
+    if (totalCreditHours > 0) {
+      const calculatedCGPA = (totalQualityPoints / totalCreditHours).toFixed(2);
+      setCGPA(calculatedCGPA);
+    } else {
+      setCGPA('');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <nav className="bg-background/80 backdrop-blur-md sticky top-0 z-50 border-b border-primary/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <Link href="/" className="text-primary hover:text-primary/90">
+                ← Back to Home
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className={styles.container}>
+        <h1 className={styles.title}>Calculate Your CGPA</h1>
+        
+        <button onClick={addSemester} className={styles.addButton}>
+          Add Another Semester
+        </button>
+
+        <form onSubmit={(e) => e.preventDefault()} className={styles.formGroup}>
+          {semesters.map((semester, index) => (
+            <div key={index} className={styles.semesterGroup}>
+              <input
+                type="text"
+                placeholder={`Semester ${index + 1}`}
+                value={semester.semester}
+                onChange={(e) => handleInputChange(index, 'semester', e.target.value)}
+                className={styles.input}
+              />
+              <input
+                type="number"
+                placeholder="SGPA"
+                value={semester.sgpa}
+                onChange={(e) => handleInputChange(index, 'sgpa', e.target.value)}
+                min="0"
+                max="4"
+                step="0.01"
+                className={styles.input}
+              />
+              <input
+                type="number"
+                placeholder="Credit Hours"
+                value={semester.creditHours}
+                onChange={(e) => handleInputChange(index, 'creditHours', e.target.value)}
+                min="1"
+                max="24"
+                className={styles.input}
+              />
+            </div>
+          ))}
+
+          <button type="button" onClick={calculateCGPA} className={styles.button}>
+            Calculate CGPA
+          </button>
+
+          {cgpa && (
+            <div className={styles.result}>
+              <label>Your CGPA:</label>
+              <input
+                type="text"
+                value={cgpa}
+                readOnly
+                className={styles.input}
+              />
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default CalculateCGPA;
