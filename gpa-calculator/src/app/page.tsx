@@ -1,22 +1,11 @@
 import Link from 'next/link';
+import Navbar from '@/components/Navbar';
 import Image from 'next/image';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-text-primary">
-      {/* Navigation */}
-      <nav className="container mx-auto px-4 py-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Image src="/calculator-icon.svg" alt="Calculator Icon" width={24} height={24} className="text-primary" />
-          <span className="text-xl font-bold text-primary">GPA Calculator</span>
-        </div>
-        <div className="flex gap-6">
-          <Link href="/calculate-cgpa" className="nav-link">Calculate CGPA</Link>
-          <Link href="/calculate-sgpa" className="nav-link">Calculate SGPA</Link>
-          <Link href="/gpa-rules" className="nav-link">GPA Rules</Link>
-          <Link href="/feedback" className="nav-link">Feedback</Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16 text-center">

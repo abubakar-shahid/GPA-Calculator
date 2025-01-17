@@ -1,19 +1,9 @@
-import Link from 'next/link';
+import Navbar from '@/components/Navbar';
 
 const GPARules = () => {
   return (
     <div className="min-h-screen bg-background">
-      <nav className="bg-background/80 backdrop-blur-md sticky top-0 z-50 border-b border-primary/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-primary hover:text-primary/90">
-                ← Back to Home
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-8 text-center">GPA Calculation Rules</h1>
