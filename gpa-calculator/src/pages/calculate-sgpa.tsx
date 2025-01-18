@@ -3,69 +3,76 @@ import Link from 'next/link';
 import styles from '../styles/CalculateSGPA.module.css';
 import Navbar from '@/components/Navbar';
 
-const gradePoints = {
-  'A': 4.0,
-  'A-': 3.67,
-  'B+': 3.33,
-  'B': 3.0,
-  'B-': 2.67,
-  'C+': 2.33,
-  'C': 2.0,
-  'C-': 1.67,
-  'D+': 1.33,
-  'D': 1.0,
-  'F': 0.0,
+// Define grade type
+type Grade = 'A' | 'A-' | 'B+' | 'B' | 'B-' | 'C+' | 'C' | 'C-' | 'D+' | 'D' | 'F';
+
+// Define course type
+interface Course {
+  name: string;
+  creditHours: string;
+  grade: Grade;
+}
+
+const gradePoints: Record<Grade, number> = {
+  A: 4.0,
+  "A-": 3.67,
+  "B+": 3.33,
+  B: 3.0,
+  "B-": 2.67,
+  "C+": 2.33,
+  C: 2.0,
+  "C-": 1.67,
+  "D+": 1.33,
+  D: 1.0,
+  F: 0.0,
 };
 
 const CalculateSGPA = () => {
-  const [courses, setCourses] = useState([
-    { name: '', grade: '', creditHours: '' },
-    { name: '', grade: '', creditHours: '' }
+  const [courses, setCourses] = useState<Course[]>([
+    { name: '', creditHours: '', grade: 'A' },
+    { name: '', creditHours: '', grade: 'A' }
   ]);
   const [sgpa, setSGPA] = useState('');
 
   const addCourse = () => {
-    setCourses([...courses, { name: '', grade: '', creditHours: '' }]);
+    setCourses([...courses, { name: '', creditHours: '', grade: 'A' }]);
   };
 
   const deleteCourse = (index: number) => {
     const updatedCourses = courses.filter((_, i) => i !== index);
     setCourses(updatedCourses.length >= 2 ? updatedCourses : [
-      { name: '', grade: '', creditHours: '' },
-      { name: '', grade: '', creditHours: '' }
+      { name: '', creditHours: '', grade: 'A' },
+      { name: '', creditHours: '', grade: 'A' }
     ]);
   };
 
-  const handleInputChange = (index: number, field: string, value: string) => {
-    const updatedCourses = courses.map((course, i) => {
-      if (i === index) {
-        return { ...course, [field]: value };
-      }
-      return course;
-    });
+  const handleInputChange = (index: number, field: keyof Course, value: string) => {
+    const updatedCourses = [...courses];
+    if (field === 'grade') {
+      updatedCourses[index][field] = value as Grade;
+    } else {
+      updatedCourses[index][field] = value;
+    }
     setCourses(updatedCourses);
   };
 
   const calculateSGPA = () => {
-    let totalQualityPoints = 0;
     let totalCreditHours = 0;
+    let totalGradePoints = 0;
 
     courses.forEach(course => {
-      const gradePoint = gradePoints[course.grade] || 0;
+      const gradePoint = gradePoints[course.grade];
       const creditHours = parseFloat(course.creditHours);
 
       if (!isNaN(creditHours)) {
-        totalQualityPoints += gradePoint * creditHours;
+        totalGradePoints += gradePoint * creditHours;
         totalCreditHours += creditHours;
       }
     });
 
-    if (totalCreditHours > 0) {
-      const calculatedSGPA = (totalQualityPoints / totalCreditHours).toFixed(2);
-      setSGPA(calculatedSGPA);
-    } else {
-      setSGPA('');
-    }
+    if (totalCreditHours === 0) return;
+    const calculatedSGPA = (totalGradePoints / totalCreditHours).toFixed(2);
+    setSGPA(calculatedSGPA);
   };
 
   return (
