@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-text-primary">
+    <main className="min-h-screen bg-background text-text-primary pt-16">
       <Navbar />
 
       {/* Hero Section */}

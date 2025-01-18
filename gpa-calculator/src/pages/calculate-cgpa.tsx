@@ -55,7 +55,7 @@ const CalculateCGPA = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-text-primary pt-16">
       <Navbar />
 
       <div className={styles.container}>
@@ -128,7 +128,7 @@ const CalculateCGPA = () => {
           </form>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

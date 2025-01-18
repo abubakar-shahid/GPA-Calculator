@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 
 const GPARules = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-text-primary pt-16">
       <Navbar />
       
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -150,7 +150,7 @@ const GPARules = () => {
           </ul>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

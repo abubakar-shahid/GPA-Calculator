@@ -32,7 +32,7 @@ const Feedback = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-text-primary pt-16">
       <Navbar />
 
       <div className="max-w-2xl mx-auto px-4 py-12">
@@ -112,7 +112,7 @@ const Feedback = () => {
           </form>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

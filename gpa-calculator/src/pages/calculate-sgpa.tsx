@@ -69,7 +69,7 @@ const CalculateSGPA = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-text-primary pt-16">
       <Navbar />
 
       <div className={styles.container}>
@@ -154,7 +154,7 @@ const CalculateSGPA = () => {
           </form>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
