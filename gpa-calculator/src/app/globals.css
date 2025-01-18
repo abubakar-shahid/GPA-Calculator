@@ -24,7 +24,7 @@
   }
 
   .nav-link.active {
-    @apply text-[#4f46e5];
+    @apply text-[#4CCCE6] text-base font-medium;
   }
 
   .btn {
