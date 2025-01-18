@@ -190,12 +190,6 @@ export default function Home() {
                   href="/feedback"
                   className="block text-text-secondary hover:text-primary"
                 >
-                  FAQ
-                </Link>
-                <Link
-                  href="/feedback"
-                  className="block text-text-secondary hover:text-primary"
-                >
                   Contact
                 </Link>
               </div>

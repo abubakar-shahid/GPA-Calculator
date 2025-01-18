@@ -23,7 +23,7 @@ const GPARules = () => {
                 <tr className="hover:bg-primary/5 transition-colors">
                   <td className="px-6 py-4">A+</td>
                   <td className="px-6 py-4">4.00</td>
-                  <td className="px-6 py-4">&ge; 89</td>
+                  <td className="px-6 py-4">90 or Greater</td>
                 </tr>
                 <tr className="hover:bg-primary/5 transition-colors">
                   <td className="px-6 py-4">A</td>
@@ -78,7 +78,7 @@ const GPARules = () => {
                 <tr className="hover:bg-primary/5 transition-colors">
                   <td className="px-6 py-4">F</td>
                   <td className="px-6 py-4">0.00</td>
-                  <td className="px-6 py-4">&le; 49</td>
+                  <td className="px-6 py-4">49 or Less</td>
                 </tr>
               </tbody>
             </table>
