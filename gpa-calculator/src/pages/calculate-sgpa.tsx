@@ -19,17 +19,21 @@ const gradePoints = {
 
 const CalculateSGPA = () => {
   const [courses, setCourses] = useState([
-    { name: '', creditHours: '', grade: '' }
+    { name: '', grade: '', creditHours: '' },
+    { name: '', grade: '', creditHours: '' }
   ]);
   const [sgpa, setSGPA] = useState('');
 
   const addCourse = () => {
-    setCourses([...courses, { name: '', creditHours: '', grade: '' }]);
+    setCourses([...courses, { name: '', grade: '', creditHours: '' }]);
   };
 
   const deleteCourse = (index: number) => {
     const updatedCourses = courses.filter((_, i) => i !== index);
-    setCourses(updatedCourses.length ? updatedCourses : [{ name: '', creditHours: '', grade: '' }]);
+    setCourses(updatedCourses.length >= 2 ? updatedCourses : [
+      { name: '', grade: '', creditHours: '' },
+      { name: '', grade: '', creditHours: '' }
+    ]);
   };
 
   const handleInputChange = (index: number, field: string, value: string) => {
@@ -47,11 +51,11 @@ const CalculateSGPA = () => {
     let totalCreditHours = 0;
 
     courses.forEach(course => {
+      const gradePoint = gradePoints[course.grade] || 0;
       const creditHours = parseFloat(course.creditHours);
-      const grade = course.grade as keyof typeof gradePoints;
 
-      if (!isNaN(creditHours) && grade in gradePoints) {
-        totalQualityPoints += gradePoints[grade] * creditHours;
+      if (!isNaN(creditHours)) {
+        totalQualityPoints += gradePoint * creditHours;
         totalCreditHours += creditHours;
       }
     });
@@ -71,58 +75,60 @@ const CalculateSGPA = () => {
       <div className={styles.container}>
         <h1 className="text-4xl font-bold text-center text-primary mb-8">Calculate Your SGPA</h1>
         
-        <div className="card max-w-2xl mx-auto mb-8">
+        <div className="card max-w-4xl mx-auto mb-8">
           <button onClick={addCourse} className="btn btn-secondary w-full mb-6">
             Add Another Course
           </button>
 
           <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
-            {courses.map((course, index) => (
-              <div key={index} className="form-group">
-                <button
-                  type="button"
-                  onClick={() => deleteCourse(index)}
-                  className="delete-btn"
-                  aria-label="Delete course"
-                >
-                  ×
-                </button>
-                <input
-                  type="text"
-                  placeholder="Course Name (Optional)"
-                  value={course.name}
-                  onChange={(e) => handleInputChange(index, 'name', e.target.value)}
-                  className="input-glow w-full text-white/80"
-                />
-                <select
-                  value={course.grade}
-                  onChange={(e) => handleInputChange(index, 'grade', e.target.value)}
-                  className="select-glow w-full"
-                >
-                  <option value="">Select Grade</option>
-                  <option value="A">A (4.0)</option>
-                  <option value="A-">A- (3.7)</option>
-                  <option value="B+">B+ (3.3)</option>
-                  <option value="B">B (3.0)</option>
-                  <option value="B-">B- (2.7)</option>
-                  <option value="C+">C+ (2.3)</option>
-                  <option value="C">C (2.0)</option>
-                  <option value="C-">C- (1.7)</option>
-                  <option value="D+">D+ (1.3)</option>
-                  <option value="D">D (1.0)</option>
-                  <option value="F">F (0.0)</option>
-                </select>
-                <input
-                  type="number"
-                  placeholder="Credit Hours"
-                  value={course.creditHours}
-                  onChange={(e) => handleInputChange(index, 'creditHours', e.target.value)}
-                  min="1"
-                  max="4"
-                  className="input-glow w-full"
-                />
-              </div>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {courses.map((course, index) => (
+                <div key={index} className="form-group">
+                  <button
+                    type="button"
+                    onClick={() => deleteCourse(index)}
+                    className="delete-btn"
+                    aria-label="Delete course"
+                  >
+                    ×
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Course Name (Optional)"
+                    value={course.name}
+                    onChange={(e) => handleInputChange(index, 'name', e.target.value)}
+                    className="input-glow w-full text-white/80"
+                  />
+                  <select
+                    value={course.grade}
+                    onChange={(e) => handleInputChange(index, 'grade', e.target.value)}
+                    className="select-glow w-full"
+                  >
+                    <option value="">Select Grade</option>
+                    <option value="A">A (4.0)</option>
+                    <option value="A-">A- (3.67)</option>
+                    <option value="B+">B+ (3.33)</option>
+                    <option value="B">B (3.0)</option>
+                    <option value="B-">B- (2.67)</option>
+                    <option value="C+">C+ (2.33)</option>
+                    <option value="C">C (2.0)</option>
+                    <option value="C-">C- (1.67)</option>
+                    <option value="D+">D+ (1.33)</option>
+                    <option value="D">D (1.0)</option>
+                    <option value="F">F (0.0)</option>
+                  </select>
+                  <input
+                    type="number"
+                    placeholder="Credit Hours"
+                    value={course.creditHours}
+                    onChange={(e) => handleInputChange(index, 'creditHours', e.target.value)}
+                    min="1"
+                    max="3"
+                    className="input-glow w-full"
+                  />
+                </div>
+              ))}
+            </div>
 
             <button 
               type="button" 
@@ -135,7 +141,7 @@ const CalculateSGPA = () => {
             {sgpa && (
               <div className="result-card">
                 <div className="flex items-center justify-between">
-                  <label className="text-lg font-semibold text-[#4f46e5]">Your SGPA:</label>
+                  <label className="text-lg font-semibold text-primary">Your SGPA:</label>
                   <input
                     type="text"
                     value={sgpa}
