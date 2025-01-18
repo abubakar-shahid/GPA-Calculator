@@ -1,28 +1,30 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
+  const pathname = usePathname();
+
   return (
-    <nav className="bg-background/80 backdrop-blur-md sticky top-0 z-50 border-b border-primary/20">
+    <nav className="border-b-2 border-primary/30 bg-background/50 backdrop-blur-lg shadow-lg shadow-primary/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href="/" className="nav-link flex items-center space-x-2 group">
               <Image
                 src="/logo.jpg"
                 alt="GPA Calculator Logo"
                 width={32}
                 height={32}
-                className="rounded-full transition-transform duration-300 group-hover:scale-110"
               />
-              <span className="text-xl font-semibold text-primary">GPA Calculator</span>
             </Link>
           </div>
-          
-          <div className="flex items-center gap-6">
+          <div className="flex space-x-8">
             <Link 
               href="/" 
-              className="nav-link flex items-center gap-1 hover:text-primary"
+              className={`nav-link flex items-center ${pathname === '/' ? 'active' : ''}`}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -42,25 +44,25 @@ const Navbar = () => {
             </Link>
             <Link 
               href="/calculate-cgpa" 
-              className="nav-link hover:text-primary transition-all duration-300 hover:scale-105"
+              className={`nav-link flex items-center ${pathname === '/calculate-cgpa' ? 'active' : ''}`}
             >
               Calculate CGPA
             </Link>
             <Link 
               href="/calculate-sgpa" 
-              className="nav-link hover:text-primary transition-all duration-300 hover:scale-105"
+              className={`nav-link flex items-center ${pathname === '/calculate-sgpa' ? 'active' : ''}`}
             >
               Calculate SGPA
             </Link>
             <Link 
               href="/gpa-rules" 
-              className="nav-link hover:text-primary transition-all duration-300 hover:scale-105"
+              className={`nav-link flex items-center ${pathname === '/gpa-rules' ? 'active' : ''}`}
             >
               GPA Rules
             </Link>
             <Link 
               href="/feedback" 
-              className="nav-link hover:text-primary transition-all duration-300 hover:scale-105"
+              className={`nav-link flex items-center ${pathname === '/feedback' ? 'active' : ''}`}
             >
               Feedback
             </Link>
