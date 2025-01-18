@@ -1,26 +1,54 @@
+'use client';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 
-const Feedback = () => {
+const FeedbackPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     feedback: '',
     type: 'suggestion'
   });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Feedback submitted:', formData);
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      feedback: '',
-      type: 'suggestion'
-    });
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/send-feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.feedback
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong');
+      }
+
+      setStatus('success');
+      setFormData({
+        name: '',
+        email: '',
+        feedback: '',
+        type: 'suggestion'
+      });
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send feedback');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -52,6 +80,7 @@ const Feedback = () => {
                 onChange={handleChange}
                 className="input-glow w-full"
                 required
+                disabled={status === 'loading'}
               />
             </div>
 
@@ -67,6 +96,7 @@ const Feedback = () => {
                 onChange={handleChange}
                 className="input-glow w-full"
                 required
+                disabled={status === 'loading'}
               />
             </div>
 
@@ -80,6 +110,7 @@ const Feedback = () => {
                 value={formData.type}
                 onChange={handleChange}
                 className="select-glow w-full"
+                disabled={status === 'loading'}
               >
                 <option value="suggestion">Suggestion</option>
                 <option value="bug">Bug Report</option>
@@ -100,15 +131,33 @@ const Feedback = () => {
                 rows={5}
                 className="input-glow w-full resize-none"
                 required
+                disabled={status === 'loading'}
               />
             </div>
 
             <button
               type="submit"
               className="btn btn-primary w-full"
+              disabled={status === 'loading'}
             >
-              Submit Feedback
+              {status === 'loading' ? 'Sending...' : 'Submit Feedback'}
             </button>
+
+            {status === 'success' && (
+              <div className="p-4 bg-green-500/10 rounded-lg">
+                <p className="text-green-400 text-center">
+                  Thank you for your feedback! We'll review it shortly.
+                </p>
+              </div>
+            )}
+
+            {status === 'error' && (
+              <div className="p-4 bg-red-500/10 rounded-lg">
+                <p className="text-red-400 text-center">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -116,4 +165,4 @@ const Feedback = () => {
   );
 };
 
-export default Feedback;
+export default FeedbackPage;
