@@ -13,6 +13,11 @@ const CalculateCGPA = () => {
     setSemesters([...semesters, { semester: '', sgpa: '', creditHours: '' }]);
   };
 
+  const deleteSemester = (index: number) => {
+    const updatedSemesters = semesters.filter((_, i) => i !== index);
+    setSemesters(updatedSemesters.length ? updatedSemesters : [{ semester: '', sgpa: '', creditHours: '' }]);
+  };
+
   const handleInputChange = (index: number, field: string, value: string) => {
     const updatedSemesters = semesters.map((semester, i) => {
       if (i === index) {
@@ -50,60 +55,72 @@ const CalculateCGPA = () => {
       <Navbar />
 
       <div className={styles.container}>
-        <h1 className={styles.title}>Calculate Your CGPA</h1>
+        <h1 className="text-4xl font-bold text-center text-primary mb-8">Calculate Your CGPA</h1>
         
-        <button onClick={addSemester} className={styles.addButton}>
-          Add Another Semester
-        </button>
-
-        <form onSubmit={(e) => e.preventDefault()} className={styles.formGroup}>
-          {semesters.map((semester, index) => (
-            <div key={index} className={styles.semesterGroup}>
-              <input
-                type="text"
-                placeholder={`Semester ${index + 1}`}
-                value={semester.semester}
-                onChange={(e) => handleInputChange(index, 'semester', e.target.value)}
-                className={styles.input}
-              />
-              <input
-                type="number"
-                placeholder="SGPA"
-                value={semester.sgpa}
-                onChange={(e) => handleInputChange(index, 'sgpa', e.target.value)}
-                min="0"
-                max="4"
-                step="0.01"
-                className={styles.input}
-              />
-              <input
-                type="number"
-                placeholder="Credit Hours"
-                value={semester.creditHours}
-                onChange={(e) => handleInputChange(index, 'creditHours', e.target.value)}
-                min="1"
-                max="24"
-                className={styles.input}
-              />
-            </div>
-          ))}
-
-          <button type="button" onClick={calculateCGPA} className={styles.button}>
-            Calculate CGPA
+        <div className="card max-w-2xl mx-auto mb-8">
+          <button onClick={addSemester} className="btn btn-secondary w-full mb-6">
+            Add Another Semester
           </button>
 
-          {cgpa && (
-            <div className={styles.result}>
-              <label>Your CGPA:</label>
-              <input
-                type="text"
-                value={cgpa}
-                readOnly
-                className={styles.input}
-              />
-            </div>
-          )}
-        </form>
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+            {semesters.map((semester, index) => (
+              <div key={index} className="form-group">
+                <button
+                  type="button"
+                  onClick={() => deleteSemester(index)}
+                  className="delete-btn"
+                  aria-label="Delete semester"
+                >
+                  ×
+                </button>
+                <div className="text-lg  text-primary mb-2">
+                  Semester {index + 1}
+                </div>
+                <input
+                  type="number"
+                  placeholder="SGPA"
+                  value={semester.sgpa}
+                  onChange={(e) => handleInputChange(index, 'sgpa', e.target.value)}
+                  min="0"
+                  max="4"
+                  step="0.01"
+                  className="input-glow w-full"
+                />
+                <input
+                  type="number"
+                  placeholder="Credit Hours"
+                  value={semester.creditHours}
+                  onChange={(e) => handleInputChange(index, 'creditHours', e.target.value)}
+                  min="1"
+                  max="24"
+                  className="input-glow w-full"
+                />
+              </div>
+            ))}
+
+            <button 
+              type="button" 
+              onClick={calculateCGPA} 
+              className="btn btn-primary w-full"
+            >
+              Calculate CGPA
+            </button>
+
+            {cgpa && (
+              <div className="result-card">
+                <div className="flex items-center justify-between">
+                  <label className="text-lg font-semibold text-[#4f46e5]">Your CGPA:</label>
+                  <input
+                    type="text"
+                    value={cgpa}
+                    readOnly
+                    className="input-glow w-32 text-center text-xl font-bold text-white"
+                  />
+                </div>
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );

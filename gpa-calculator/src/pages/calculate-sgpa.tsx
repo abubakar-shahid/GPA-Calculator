@@ -4,16 +4,15 @@ import styles from '../styles/CalculateSGPA.module.css';
 import Navbar from '@/components/Navbar';
 
 const gradePoints = {
-  'A+': 4.0,
   'A': 4.0,
-  'A-': 3.7,
-  'B+': 3.3,
+  'A-': 3.67,
+  'B+': 3.33,
   'B': 3.0,
-  'B-': 2.7,
-  'C+': 2.3,
+  'B-': 2.67,
+  'C+': 2.33,
   'C': 2.0,
-  'C-': 1.7,
-  'D+': 1.3,
+  'C-': 1.67,
+  'D+': 1.33,
   'D': 1.0,
   'F': 0.0,
 };
@@ -26,6 +25,11 @@ const CalculateSGPA = () => {
 
   const addCourse = () => {
     setCourses([...courses, { name: '', creditHours: '', grade: '' }]);
+  };
+
+  const deleteCourse = (index: number) => {
+    const updatedCourses = courses.filter((_, i) => i !== index);
+    setCourses(updatedCourses.length ? updatedCourses : [{ name: '', creditHours: '', grade: '' }]);
   };
 
   const handleInputChange = (index: number, field: string, value: string) => {
@@ -65,68 +69,84 @@ const CalculateSGPA = () => {
       <Navbar />
 
       <div className={styles.container}>
-        <h1 className={styles.title}>Calculate Your SGPA</h1>
+        <h1 className="text-4xl font-bold text-center text-primary mb-8">Calculate Your SGPA</h1>
         
-        <button onClick={addCourse} className={styles.addButton}>
-          Add Another Course
-        </button>
+        <div className="card max-w-2xl mx-auto mb-8">
+          <button onClick={addCourse} className="btn btn-secondary w-full mb-6">
+            Add Another Course
+          </button>
 
-        <form onSubmit={(e) => e.preventDefault()} className={styles.formGroup}>
-          {courses.map((course, index) => (
-            <div key={index} className={styles.courseGroup}>
-              <input
-                type="text"
-                placeholder={`Course ${index + 1}`}
-                value={course.name}
-                onChange={(e) => handleInputChange(index, 'name', e.target.value)}
-                className={styles.input}
-              />
-              <div className={styles.selectWrapper}>
-                <select
-                  value={course.creditHours}
-                  onChange={(e) => handleInputChange(index, 'creditHours', e.target.value)}
-                  className={styles.select}
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+            {courses.map((course, index) => (
+              <div key={index} className="form-group">
+                <button
+                  type="button"
+                  onClick={() => deleteCourse(index)}
+                  className="delete-btn"
+                  aria-label="Delete course"
                 >
-                  <option value="">Credit Hours</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-              </div>
-              <div className={styles.selectWrapper}>
+                  ×
+                </button>
+                <input
+                  type="text"
+                  placeholder="Course Name (Optional)"
+                  value={course.name}
+                  onChange={(e) => handleInputChange(index, 'name', e.target.value)}
+                  className="input-glow w-full text-white/80"
+                />
                 <select
                   value={course.grade}
                   onChange={(e) => handleInputChange(index, 'grade', e.target.value)}
-                  className={styles.select}
+                  className="select-glow w-full"
                 >
-                  <option value="">Grade</option>
-                  {Object.keys(gradePoints).map((grade) => (
-                    <option key={grade} value={grade}>
-                      {grade}
-                    </option>
-                  ))}
+                  <option value="">Select Grade</option>
+                  <option value="A">A (4.0)</option>
+                  <option value="A-">A- (3.7)</option>
+                  <option value="B+">B+ (3.3)</option>
+                  <option value="B">B (3.0)</option>
+                  <option value="B-">B- (2.7)</option>
+                  <option value="C+">C+ (2.3)</option>
+                  <option value="C">C (2.0)</option>
+                  <option value="C-">C- (1.7)</option>
+                  <option value="D+">D+ (1.3)</option>
+                  <option value="D">D (1.0)</option>
+                  <option value="F">F (0.0)</option>
                 </select>
+                <input
+                  type="number"
+                  placeholder="Credit Hours"
+                  value={course.creditHours}
+                  onChange={(e) => handleInputChange(index, 'creditHours', e.target.value)}
+                  min="1"
+                  max="4"
+                  className="input-glow w-full"
+                />
               </div>
-            </div>
-          ))}
+            ))}
 
-          <button type="button" onClick={calculateSGPA} className={styles.button}>
-            Calculate SGPA
-          </button>
+            <button 
+              type="button" 
+              onClick={calculateSGPA} 
+              className="btn btn-primary w-full"
+            >
+              Calculate SGPA
+            </button>
 
-          {sgpa && (
-            <div className={styles.result}>
-              <label>Your SGPA:</label>
-              <input
-                type="text"
-                value={sgpa}
-                readOnly
-                className={styles.input}
-              />
-            </div>
-          )}
-        </form>
+            {sgpa && (
+              <div className="result-card">
+                <div className="flex items-center justify-between">
+                  <label className="text-lg font-semibold text-[#4f46e5]">Your SGPA:</label>
+                  <input
+                    type="text"
+                    value={sgpa}
+                    readOnly
+                    className="input-glow w-32 text-center text-xl font-bold text-white"
+                  />
+                </div>
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );

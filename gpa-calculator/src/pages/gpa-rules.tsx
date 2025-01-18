@@ -17,14 +17,14 @@ const GPARules = () => {
                 <div className="space-y-2">
                   <p className="text-text-secondary">A+ = 4.0</p>
                   <p className="text-text-secondary">A = 4.0</p>
-                  <p className="text-text-secondary">A- = 3.7</p>
-                  <p className="text-text-secondary">B+ = 3.3</p>
+                  <p className="text-text-secondary">A- = 3.67</p>
+                  <p className="text-text-secondary">B+ = 3.33</p>
                   <p className="text-text-secondary">B = 3.0</p>
-                  <p className="text-text-secondary">B- = 2.7</p>
-                  <p className="text-text-secondary">C+ = 2.3</p>
+                  <p className="text-text-secondary">B- = 2.67</p>
+                  <p className="text-text-secondary">C+ = 2.33</p>
                   <p className="text-text-secondary">C = 2.0</p>
-                  <p className="text-text-secondary">C- = 1.7</p>
-                  <p className="text-text-secondary">D+ = 1.3</p>
+                  <p className="text-text-secondary">C- = 1.67</p>
+                  <p className="text-text-secondary">D+ = 1.33</p>
                   <p className="text-text-secondary">D = 1.0</p>
                   <p className="text-text-secondary">F = 0.0</p>
                 </div>
@@ -33,7 +33,7 @@ const GPARules = () => {
               <div className="bg-background border border-primary/20 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-4">Credit Hours</h3>
                 <p className="text-text-secondary mb-4">
-                  Credit hours typically range from 1 to 4 per course, depending on:
+                  Credit hours typically range from 1 to 3 per course, depending on:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-text-secondary">
                   <li>Course complexity</li>

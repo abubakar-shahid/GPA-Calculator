@@ -36,12 +36,12 @@ const Feedback = () => {
       <Navbar />
 
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-primary mb-8 text-center">Feedback</h1>
+        <h1 className="text-4xl font-bold text-center text-primary mb-8">Share Your Feedback</h1>
         
-        <div className="bg-background border border-primary/20 p-8 rounded-lg">
+        <div className="card">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-text-primary mb-2">
+            <div className="form-group">
+              <label htmlFor="name" className="text-lg font-semibold text-primary mb-2">
                 Name
               </label>
               <input
@@ -50,14 +50,13 @@ const Feedback = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-background border border-primary/40 text-text-primary px-4 py-2 rounded-md
-                focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="input-glow w-full"
                 required
               />
             </div>
 
-            <div>
-              <label htmlFor="email" className="block text-text-primary mb-2">
+            <div className="form-group">
+              <label htmlFor="email" className="text-lg font-semibold text-primary mb-2">
                 Email
               </label>
               <input
@@ -66,14 +65,13 @@ const Feedback = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-background border border-primary/40 text-text-primary px-4 py-2 rounded-md
-                focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="input-glow w-full"
                 required
               />
             </div>
 
-            <div>
-              <label htmlFor="type" className="block text-text-primary mb-2">
+            <div className="form-group">
+              <label htmlFor="type" className="text-lg font-semibold text-primary mb-2">
                 Feedback Type
               </label>
               <select
@@ -81,8 +79,7 @@ const Feedback = () => {
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
-                className="w-full bg-background border border-primary/40 text-text-primary px-4 py-2 rounded-md
-                focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="select-glow w-full"
               >
                 <option value="suggestion">Suggestion</option>
                 <option value="bug">Bug Report</option>
@@ -91,8 +88,8 @@ const Feedback = () => {
               </select>
             </div>
 
-            <div>
-              <label htmlFor="feedback" className="block text-text-primary mb-2">
+            <div className="form-group">
+              <label htmlFor="feedback" className="text-lg font-semibold text-primary mb-2">
                 Your Feedback
               </label>
               <textarea
@@ -101,16 +98,14 @@ const Feedback = () => {
                 value={formData.feedback}
                 onChange={handleChange}
                 rows={5}
-                className="w-full bg-background border border-primary/40 text-text-primary px-4 py-2 rounded-md
-                focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="input-glow w-full resize-none"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-primary text-background px-6 py-3 rounded-md hover:bg-primary/90 
-              transition-colors font-semibold"
+              className="btn btn-primary w-full"
             >
               Submit Feedback
             </button>
