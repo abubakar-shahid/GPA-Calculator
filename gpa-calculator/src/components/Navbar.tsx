@@ -101,6 +101,12 @@ const Navbar = () => {
             >
               Feedback
             </Link>
+            <Link 
+              href="/contact" 
+              className={`nav-link flex items-center ${pathname === '/contact' ? 'active' : ''}`}
+            >
+              Contact
+            </Link>
           </div>
         </div>
 
@@ -155,6 +161,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Feedback
+            </Link>
+            <Link 
+              href="/contact" 
+              className={`nav-link flex items-center px-3 py-2 ${pathname === '/contact' ? 'active' : ''}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact
             </Link>
           </div>
         )}

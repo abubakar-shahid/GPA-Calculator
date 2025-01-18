@@ -187,7 +187,7 @@ export default function Home() {
                   Feedback
                 </Link>
                 <Link
-                  href="/feedback"
+                  href="/contact"
                   className="block text-text-secondary hover:text-primary"
                 >
                   Contact
