@@ -9,6 +9,8 @@ const CalculateCGPA = () => {
     { semester: '', sgpa: '', creditHours: '' }
   ]);
   const [cgpa, setCGPA] = useState('');
+  const [totalCreditHoursState, setTotalCreditHoursState] = useState(0);
+  const [validSemestersCount, setValidSemestersCount] = useState(0);
 
   const addSemester = () => {
     setSemesters([...semesters, { semester: '', sgpa: '', creditHours: '' }]);
@@ -35,6 +37,7 @@ const CalculateCGPA = () => {
   const calculateCGPA = () => {
     let totalQualityPoints = 0;
     let totalCreditHours = 0;
+    let validSemesters = 0;
 
     semesters.forEach(semester => {
       const sgpa = parseFloat(semester.sgpa);
@@ -43,14 +46,19 @@ const CalculateCGPA = () => {
       if (!isNaN(sgpa) && !isNaN(creditHours)) {
         totalQualityPoints += sgpa * creditHours;
         totalCreditHours += creditHours;
+        validSemesters++;
       }
     });
 
     if (totalCreditHours > 0) {
       const calculatedCGPA = (totalQualityPoints / totalCreditHours).toFixed(2);
       setCGPA(calculatedCGPA);
+      setTotalCreditHoursState(totalCreditHours);
+      setValidSemestersCount(validSemesters);
     } else {
       setCGPA('');
+      setTotalCreditHoursState(0);
+      setValidSemestersCount(0);
     }
   };
 
@@ -113,7 +121,7 @@ const CalculateCGPA = () => {
             </button>
 
             {cgpa && (
-              <div className="result-card">
+              <div className="result-card space-y-4">
                 <div className="flex items-center justify-between">
                   <label className="text-lg font-semibold text-primary">Your CGPA:</label>
                   <input
@@ -122,6 +130,16 @@ const CalculateCGPA = () => {
                     readOnly
                     className="input-glow w-32 text-center text-xl font-bold text-white"
                   />
+                </div>
+                <div className="grid grid-cols-2 gap-4 pt-2 border-t-2 border-[#4f46e5]/30">
+                  <div>
+                    <label className="text-sm text-white/70">Total Semesters:</label>
+                    <div className="text-lg font-semibold text-white">{validSemestersCount}</div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-white/70">Total Credit Hours:</label>
+                    <div className="text-lg font-semibold text-white">{totalCreditHoursState}</div>
+                  </div>
                 </div>
               </div>
             )}
