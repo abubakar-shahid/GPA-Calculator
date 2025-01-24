@@ -33,6 +33,8 @@ const CalculateSGPA = () => {
     { name: '', creditHours: '', grade: 'A' }
   ]);
   const [sgpa, setSGPA] = useState('');
+  const [totalCreditHours, setTotalCreditHours] = useState(0);
+  const [validCoursesCount, setValidCoursesCount] = useState(0);
 
   const addCourse = () => {
     setCourses([...courses, { name: '', creditHours: '', grade: 'A' }]);
@@ -59,6 +61,7 @@ const CalculateSGPA = () => {
   const calculateSGPA = () => {
     let totalCreditHours = 0;
     let totalGradePoints = 0;
+    let validCourses = 0;
 
     courses.forEach(course => {
       const gradePoint = gradePoints[course.grade];
@@ -67,12 +70,21 @@ const CalculateSGPA = () => {
       if (!isNaN(creditHours)) {
         totalGradePoints += gradePoint * creditHours;
         totalCreditHours += creditHours;
+        validCourses++;
       }
     });
 
-    if (totalCreditHours === 0) return;
+    if (totalCreditHours === 0) {
+      setSGPA('');
+      setTotalCreditHours(0);
+      setValidCoursesCount(0);
+      return;
+    }
+    
     const calculatedSGPA = (totalGradePoints / totalCreditHours).toFixed(2);
     setSGPA(calculatedSGPA);
+    setTotalCreditHours(totalCreditHours);
+    setValidCoursesCount(validCourses);
   };
 
   return (
@@ -146,7 +158,7 @@ const CalculateSGPA = () => {
             </button>
 
             {sgpa && (
-              <div className="result-card">
+              <div className="result-card space-y-4">
                 <div className="flex items-center justify-between">
                   <label className="text-lg font-semibold text-primary">Your SGPA:</label>
                   <input
@@ -155,6 +167,16 @@ const CalculateSGPA = () => {
                     readOnly
                     className="input-glow w-32 text-center text-xl font-bold text-white"
                   />
+                </div>
+                <div className="grid grid-cols-2 gap-4 pt-2 border-t-2 border-[#4f46e5]/30">
+                  <div>
+                    <label className="text-sm text-white/70">Total Courses:</label>
+                    <div className="text-lg font-semibold text-white">{validCoursesCount}</div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-white/70">Total Credit Hours:</label>
+                    <div className="text-lg font-semibold text-white">{totalCreditHours}</div>
+                  </div>
                 </div>
               </div>
             )}
