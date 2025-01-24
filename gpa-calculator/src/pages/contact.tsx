@@ -10,8 +10,10 @@ const ContactPage = () => {
       <Navbar />
       <div className="min-h-screen pt-20 pb-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-center mb-12 text-white">Contact Me</h1>
-          
+          <h1 className="text-4xl font-bold text-center mb-12 text-white">
+            Contact Me
+          </h1>
+
           <div className="bg-white/5 backdrop-blur-lg rounded-xl p-8 shadow-lg">
             <div className="grid gap-8">
               {/* Phone */}
@@ -23,12 +25,12 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-white">Phone</h3>
-                  <p className="text-gray-300">+92 321 4567890</p>
+                  <p className="text-gray-300">+92 322 1429661</p>
                 </div>
               </div>
 
               {/* Email */}
-              <Link 
+              <Link
                 href="mailto:abubakarshahid1309@gmail.com"
                 className="flex items-center space-x-4 group"
               >
@@ -44,8 +46,8 @@ const ContactPage = () => {
               </Link>
 
               {/* GitHub */}
-              <Link 
-                href="https://github.com/abubakar-shahid" 
+              <Link
+                href="https://github.com/abubakar-shahid"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-4 group"
@@ -62,8 +64,8 @@ const ContactPage = () => {
               </Link>
 
               {/* LinkedIn */}
-              <Link 
-                href="https://www.linkedin.com/in/abubakar-shahid" 
+              <Link
+                href="https://www.linkedin.com/in/abubakar-shahid-9031abs/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-4 group"
