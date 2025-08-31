@@ -1,3 +1,3 @@
 # GPA-Calculator
  
-(gpa-calculator) [https://gpa-calculator-smoky.vercel.app/]
+[gpa-calculator] (https://gpa-calculator-smoky.vercel.app/)
